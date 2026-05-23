@@ -45,25 +45,22 @@
 
   <style>
     html { scroll-behavior: smooth; }
-
     .hero-bg { background: linear-gradient(135deg, #1F2D3D 0%, #2C3E50 100%); }
-
     .card { transition: transform .25s ease, box-shadow .25s ease; }
     .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.12); }
-
+    .card-oos { opacity: .65; }
+    .card-oos:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
     .msg-user { background:#F26522; color:#fff; border-radius:18px 18px 4px 18px; }
     .msg-ai   { background:#F5F7FA; color:#1F2D3D; border-radius:18px 18px 18px 4px; }
-
     @keyframes blink { 0%,60%,100%{opacity:.2} 30%{opacity:1} }
     .d1{animation:blink 1.4s infinite 0s}
     .d2{animation:blink 1.4s infinite .2s}
     .d3{animation:blink 1.4s infinite .4s}
-
     .img-ph { background: linear-gradient(135deg, #1F2D3D 0%, #2C3E50 100%); }
-
     .cat-btn        { border:2px solid #e5e7eb; color:#6b7280; }
     .cat-btn.active { border-color:#F26522; background:#F26522; color:#fff; }
-
+    .cat-btn.instock-btn.active { border-color:#16a34a; background:#16a34a; }
+    .thumb-active { outline: 2px solid #F26522; outline-offset: 1px; }
     input:focus { outline:none; box-shadow:0 0 0 2px #F2652240; }
   </style>
 </head>
@@ -73,11 +70,9 @@
 <!-- ═══════ HEADER ═══════ -->
 <header id="hdr" class="fixed inset-x-0 top-0 z-50 hero-bg transition-shadow duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-
     <a href="#" class="flex-shrink-0">
       <img src="images/ЛОГО.jpg" alt="ТРОС-НН" class="h-10 w-auto rounded-md">
     </a>
-
     <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
       <a href="#ai"       class="text-white/75 hover:text-orange transition-colors">Подбор троса</a>
       <a href="#catalog"  class="text-white/75 hover:text-orange transition-colors">Ассортимент</a>
@@ -85,7 +80,6 @@
       <a href="#reviews"  class="text-white/75 hover:text-orange transition-colors">Отзывы</a>
       <a href="#contacts" class="text-white/75 hover:text-orange transition-colors">Контакты</a>
     </nav>
-
     <div class="flex items-center gap-3">
       <a href="tel:+79306789230" class="hidden md:block text-white/70 hover:text-white text-sm transition-colors">+7 (930) 678-92-30</a>
       <a href="https://t.me/TrosNN" target="_blank"
@@ -97,7 +91,6 @@
       </button>
     </div>
   </div>
-
   <div id="mob-menu" class="hidden md:hidden border-t border-white/10">
     <div class="px-4 py-4 flex flex-col gap-3 text-sm">
       <a href="#ai"       class="text-white/80 py-1" onclick="closeMob()">Подбор троса</a>
@@ -115,21 +108,17 @@
 <section class="hero-bg pt-16 relative min-h-screen flex items-center">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-24">
     <div class="max-w-2xl">
-
       <div class="inline-flex items-center gap-2 bg-orange/20 text-orange px-4 py-2 rounded-full text-sm font-semibold mb-6">
         <span class="w-2 h-2 bg-orange rounded-full"></span>
         Нижний Новгород · 5+ лет на рынке
       </div>
-
       <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
         Сантехнические<br><span class="text-orange">тросы</span> для<br>прочистки труб
       </h1>
-
       <p class="text-white/65 text-lg mb-8 leading-relaxed">
         Помогаем подобрать трос под конкретную задачу — для дома, частного сектора, канализации и сложных засоров.<br>
         Не просто продаём трос, а помогаем решить проблему без переплаты.
       </p>
-
       <div class="flex flex-wrap gap-8 mb-10 text-center">
         <div><div class="text-orange text-3xl font-black">5+</div><div class="text-white/55 text-sm">лет на рынке</div></div>
         <div class="w-px bg-white/15"></div>
@@ -137,7 +126,6 @@
         <div class="w-px bg-white/15"></div>
         <div><div class="text-orange text-3xl font-black">№1</div><div class="text-white/55 text-sm">в НН и области</div></div>
       </div>
-
       <div class="flex flex-wrap gap-4">
         <a href="#ai"
            class="bg-orange hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all hover:scale-105 flex items-center gap-2">
@@ -157,7 +145,6 @@
       </div>
     </div>
   </div>
-
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 text-xs">
     <span>Листайте вниз</span>
     <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,16 +157,12 @@
 <!-- ═══════ AI CHAT ═══════ -->
 <section id="ai" class="py-20 bg-brand-light">
   <div class="max-w-3xl mx-auto px-4 sm:px-6">
-
     <div class="text-center mb-10">
       <div class="inline-flex items-center gap-2 bg-orange/10 text-orange px-4 py-2 rounded-full text-sm font-semibold mb-4">ИИ-помощник</div>
       <h2 class="text-3xl md:text-4xl font-black mb-4">Опишите проблему — подберём трос</h2>
       <p class="text-gray-500 text-lg">Расскажите, где засор — ИИ порекомендует нужный трос с ценой и кнопкой заказа</p>
     </div>
-
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-
-      <!-- Chat header -->
       <div class="hero-bg px-6 py-4 flex items-center gap-3">
         <div class="w-10 h-10 bg-orange rounded-full flex items-center justify-center flex-shrink-0">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,8 +177,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Messages -->
       <div id="msgs" class="h-72 overflow-y-auto p-5 flex flex-col gap-4">
         <div class="flex gap-3">
           <div class="w-8 h-8 bg-orange rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold">AI</div>
@@ -204,16 +185,12 @@
           </div>
         </div>
       </div>
-
-      <!-- Quick buttons -->
       <div class="px-5 py-3 border-t flex flex-wrap gap-2">
         <button onclick="quick('Засор в ванной или раковине')"        class="text-xs bg-gray-100 hover:bg-orange hover:text-white text-gray-600 px-3 py-1.5 rounded-full transition-colors">Ванная / раковина</button>
         <button onclick="quick('Засор в унитазе')"                    class="text-xs bg-gray-100 hover:bg-orange hover:text-white text-gray-600 px-3 py-1.5 rounded-full transition-colors">Унитаз</button>
         <button onclick="quick('Засор в канализации частного дома')"  class="text-xs bg-gray-100 hover:bg-orange hover:text-white text-gray-600 px-3 py-1.5 rounded-full transition-colors">Частный дом</button>
         <button onclick="quick('Прочистка стояка или уличной канализации')" class="text-xs bg-gray-100 hover:bg-orange hover:text-white text-gray-600 px-3 py-1.5 rounded-full transition-colors">Стояк / улица</button>
       </div>
-
-      <!-- Input -->
       <div class="px-5 py-4 border-t flex gap-3">
         <input id="inp" type="text" placeholder="Опишите вашу проблему..."
                class="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-sm transition-colors"
@@ -223,7 +200,6 @@
           Отправить
         </button>
       </div>
-
     </div>
   </div>
 </section>
@@ -232,16 +208,15 @@
 <!-- ═══════ CATALOG ═══════ -->
 <section id="catalog" class="py-20 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
-
     <div class="text-center mb-10">
       <div class="inline-flex items-center gap-2 bg-orange/10 text-orange px-4 py-2 rounded-full text-sm font-semibold mb-4">Ассортимент</div>
       <h2 class="text-3xl md:text-4xl font-black mb-3">Наши тросы</h2>
       <p class="text-gray-500">Надёжное заводское качество · Подбор под задачу</p>
     </div>
 
-    <!-- Filters -->
     <div class="flex flex-wrap justify-center gap-2 mb-8">
       <button class="cat-btn active px-5 py-2 rounded-full font-semibold text-sm transition-all" onclick="filterCat('all',this)">Все</button>
+      <button class="cat-btn instock-btn px-5 py-2 rounded-full font-semibold text-sm transition-all" onclick="filterCat('instock',this)">✓ В наличии</button>
       <button class="cat-btn px-5 py-2 rounded-full font-semibold text-sm transition-all" onclick="filterCat('apt',this)">Квартира</button>
       <button class="cat-btn px-5 py-2 rounded-full font-semibold text-sm transition-all" onclick="filterCat('house',this)">Частный дом</button>
       <button class="cat-btn px-5 py-2 rounded-full font-semibold text-sm transition-all" onclick="filterCat('pro',this)">Профессиональный</button>
@@ -255,7 +230,6 @@
 <!-- ═══════ ABOUT ═══════ -->
 <section id="about" class="py-20 hero-bg">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
-
     <div class="grid md:grid-cols-2 gap-16 items-center">
       <div>
         <div class="inline-flex items-center gap-2 bg-orange/20 text-orange px-4 py-2 rounded-full text-sm font-semibold mb-6">О компании</div>
@@ -279,7 +253,6 @@
           </a>
         </div>
       </div>
-
       <div class="grid grid-cols-2 gap-4">
         <div class="bg-white/8 rounded-2xl p-6">
           <div class="text-orange text-3xl font-black mb-2">5+</div>
@@ -303,7 +276,6 @@
         </div>
       </div>
     </div>
-
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 text-center">
       <div>
         <div class="w-14 h-14 bg-orange/15 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -347,7 +319,6 @@
       <div class="text-yellow-400 text-2xl mb-2">★★★★★</div>
       <p class="text-gray-500">Реальные отзывы клиентов из Нижнего Новгорода</p>
     </div>
-
     <div class="grid md:grid-cols-3 gap-6">
       <div class="bg-white rounded-2xl p-6 shadow-sm card">
         <div class="text-yellow-400 mb-3">★★★★★</div>
@@ -393,48 +364,36 @@
 <!-- ═══════ CONTACTS ═══════ -->
 <section id="contacts" class="py-20 hero-bg">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-
     <div class="inline-flex items-center gap-2 bg-orange/20 text-orange px-4 py-2 rounded-full text-sm font-semibold mb-6">Как заказать</div>
     <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Просто напишите нам</h2>
     <p class="text-white/55 text-lg mb-12">Ответим быстро, поможем с выбором, оформим заказ</p>
-
     <div class="flex flex-wrap justify-center gap-4 mb-10">
-      <!-- Telegram -->
       <a href="https://t.me/TrosNN?text=Хочу+заказать+трос%3A+" target="_blank"
          class="flex items-center gap-3 bg-[#229ED9] hover:bg-[#1a8bc0] text-white px-7 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.013 9.487c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.876.734z"/></svg>
         Telegram
       </a>
-
-      <!-- MAX -->
       <a href="tel:+79306789230"
          class="flex items-center gap-3 bg-[#6C5DD3] hover:bg-[#5c4ec0] text-white px-7 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105">
         <img src="images/значок макс.jpeg" alt="MAX" class="w-6 h-6 rounded-lg object-cover">
         Написать в MAX
       </a>
-
-      <!-- VKontakte -->
       <a href="https://vk.ru/club237736298" target="_blank"
          class="flex items-center gap-3 bg-[#0077FF] hover:bg-[#0066dd] text-white px-7 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.743c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.762-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
         ВКонтакте
       </a>
-
-      <!-- Avito -->
       <a href="https://www.avito.ru/brands/120a2071a87584bff058eca6d5570b51?src=sharing" target="_blank"
          class="flex items-center gap-3 bg-[#00A775] hover:bg-[#009968] text-white px-7 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105">
         <img src="images/значок авито.jpg" alt="Avito" class="w-6 h-6 rounded-lg object-cover">
         Смотреть на Avito
       </a>
-
-      <!-- Phone -->
       <a href="tel:+79306789230"
          class="flex items-center gap-3 bg-orange hover:bg-orange-600 text-white px-7 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/></svg>
         +7 (930) 678-92-30
       </a>
     </div>
-
     <div class="flex flex-wrap justify-center gap-8 text-white/40 text-sm">
       <div class="flex items-center gap-2">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
@@ -456,7 +415,7 @@
     <div class="flex items-center gap-6">
       <a href="/privacy.html" class="hover:text-white/65 transition-colors">Политика конфиденциальности</a>
       <a href="https://t.me/TrosNN" target="_blank" class="hover:text-white/65 transition-colors">Telegram</a>
-      <a href="https://vk.me/+79306789230" target="_blank" class="hover:text-white/65 transition-colors">MAX</a>
+      <a href="tel:+79306789230" class="hover:text-white/65 transition-colors">MAX</a>
       <a href="https://vk.ru/club237736298" target="_blank" class="hover:text-white/65 transition-colors">VK</a>
       <a href="https://www.avito.ru/brands/120a2071a87584bff058eca6d5570b51?src=sharing" target="_blank" class="hover:text-white/65 transition-colors">Avito</a>
     </div>
@@ -475,109 +434,115 @@
 
 <!-- ═══════ SCRIPTS ═══════ -->
 <script>
+
+// ── ФОТО-ХЕЛПЕР ───────────────────────────────────────────────────────────
+function photoUrl(filename) {
+  return 'images/' + encodeURIComponent('Фотки тросов ') + '/' + encodeURIComponent(filename);
+}
+
 // ── DATA ──────────────────────────────────────────────────────────────────
 const P = [
-  { id:'p01', d:6,  l:5,  price:1950,  cat:'apt',
+  { id:'p01', d:6,  l:5,  price:1950,  cat:'apt',   inStock:true,
+    photos:['6 мм 5 метров фото 1-Photoroom-2.png','6 мм 5 метров фото 2-Photoroom.png','6 мм 5 метров фото 3-Photoroom.png'],
     title:'Трос 6 мм × 5 м',    tags:['Раковина','Ванна','Душ','Кухня'],    pipes:'32–50 мм',
     desc:'Лёгкие квартирные засоры. Хорошо проходит изгибы и 90° углы.',
-    feat:['Для лёгких квартирных засоров','Раковина, ванна, душ, кухня','Хорошо проходит изгибы и 90° углы'],
-    kw:['ванная','раковина','душ','кухня','квартира','жир','волосы','32','50'] },
+    feat:['Для лёгких квартирных засоров','Раковина, ванна, душ, кухня','Хорошо проходит изгибы и 90° углы'] },
 
-  { id:'p02', d:6,  l:10, price:3240,  cat:'apt',
+  { id:'p02', d:6,  l:10, price:3240,  cat:'apt',   inStock:true,
+    photos:['6 мм 10 метров фото 1.jpg','6 мм 10 метров фото 2-Photoroom.png','6 мм 10 метров фото 3-Photoroom.png'],
     title:'Трос 6 мм × 10 м',   tags:['Кухня','Ванная','Длинный'],          pipes:'32–50 мм',
     desc:'Длинные квартирные линии. Жир, волосы, мыльные пробки.',
-    feat:['Для длинных квартирных линий','Жир, волосы, мыльные пробки','Кухня и ванная в частном доме'],
-    kw:['ванная','раковина','кухня','длинный','жир','волосы','32','50'] },
+    feat:['Для длинных квартирных линий','Жир, волосы, мыльные пробки','Кухня и ванная в частном доме'] },
 
-  { id:'p03', d:8,  l:5,  price:2460,  cat:'apt',
+  { id:'p03', d:8,  l:5,  price:2460,  cat:'apt',   inStock:true,
+    photos:['8 мм 5 метров фото 1-Photoroom.png','8 мм 5 метров фото 2-Photoroom.png','8 мм 5 метров фото 3.png'],
     title:'Трос 8 мм × 5 м',    tags:['Универсальный','Квартира'],          pipes:'40–70 мм',
     desc:'Универсальный квартирный вариант. Жёстче 6 мм, но ещё гибкий.',
-    feat:['Универсальный квартирный вариант','Плотный бытовой засор','Жёстче 6 мм, но ещё гибкий'],
-    kw:['квартира','универсальный','бытовой','40','70'] },
+    feat:['Универсальный квартирный вариант','Плотный бытовой засор','Жёстче 6 мм, но ещё гибкий'] },
 
-  { id:'p04', d:8,  l:10, price:4260,  cat:'apt',  hot:true,
+  { id:'p04', d:8,  l:10, price:4260,  cat:'apt',   inStock:true,  hot:true,
+    photos:['8 мм 10 метров фото 1-Photoroom.png','8 мм 10 метров фото 2-Photoroom.png','8 мм 10 метров фото 3-Photoroom.png'],
     title:'Трос 8 мм × 10 м',   tags:['Хит продаж','Квартира','Дом'],       pipes:'50–110 мм',
     desc:'Самый ходовой трос. Квартиры и дома. Жир, бумага, плотные засоры.',
-    feat:['Самый ходовой трос','Квартиры и частные дома','Жир, бумага, плотные бытовые засоры'],
-    kw:['квартира','дом','жир','бумага','унитаз','плотный','50','110'] },
+    feat:['Самый ходовой трос','Квартиры и частные дома','Жир, бумага, плотные бытовые засоры'] },
 
-  { id:'p05', d:10, l:5,  price:2640,  cat:'apt',
+  { id:'p05', d:10, l:5,  price:2640,  cat:'apt',   inStock:false,
+    photos:[],
     title:'Трос 10 мм × 5 м',   tags:['Сложный засор'],                     pipes:'50–110 мм',
     desc:'Сложные бытовые засоры. Начало стояка, плотный жир.',
-    feat:['Сложные бытовые засоры','Начало стояка, плотный жир','Более жёсткий и мощный'],
-    kw:['стояк','сложный','жир','плотный','100','110'] },
+    feat:['Сложные бытовые засоры','Начало стояка, плотный жир','Более жёсткий и мощный'] },
 
-  { id:'p06', d:10, l:10, price:4620,  cat:'house',
+  { id:'p06', d:10, l:10, price:4620,  cat:'house', inStock:true,
+    photos:['10 мм 10 метров фото 1-Photoroom-2.png','10 мм 10 метров фото 2-Photoroom.png','10 мм 10 метров фото 3-Photoroom.png'],
     title:'Трос 10 мм × 10 м',  tags:['Частный дом','Стояк'],               pipes:'50–110 мм',
     desc:'Стояк, начало наружной канализации. Хороший баланс гибкости и мощности.',
-    feat:['Стояк, начало наружной канализации','Сложные засоры в доме и квартире','Хороший баланс гибкости и мощности'],
-    kw:['стояк','дом','наружная','100','110','отложения'] },
+    feat:['Стояк, начало наружной канализации','Сложные засоры в доме и квартире','Хороший баланс гибкости и мощности'] },
 
-  { id:'p07', d:10, l:15, price:6600,  cat:'house',
+  { id:'p07', d:10, l:15, price:6600,  cat:'house', inStock:true,
+    photos:['10 мм 15 метров фото 1-Photoroom.png','10 мм 15 метров фото 2.png','10 мм 15 метров фото 3-Photoroom.png'],
     title:'Трос 10 мм × 15 м',  tags:['Частный дом','Длинный'],             pipes:'50–110 мм',
     desc:'Частный дом и длинная канализация. Старые засоры, плотные отложения.',
-    feat:['Частный дом и длинная канализация','Старые засоры, плотные отложения','Хороший баланс гибкости и силы'],
-    kw:['дом','дача','длинный','старый','отложения','100','110'] },
+    feat:['Частный дом и длинная канализация','Старые засоры, плотные отложения','Хороший баланс гибкости и силы'] },
 
-  { id:'p08', d:12, l:10, price:5390,  cat:'house',
+  { id:'p08', d:12, l:10, price:5390,  cat:'house', inStock:true,
+    photos:['12 мм 10 метров фото 1-Photoroom.png','12 мм 10 метров фото 2-Photoroom.png','12 мм 10 метров фото 3-Photoroom.png'],
     title:'Трос 12 мм × 10 м',  tags:['Частный дом','Мощный'],              pipes:'75–110 мм',
     desc:'Сильные засоры в частном доме. Не скручивается, в отличие от китайских тросов.',
-    feat:['Сильные засоры в частном доме','Плотные пробки, сложные участки','Не скручивается как дешёвые китайские тросы'],
-    kw:['дом','плотный','пробка','сложный','75','100','110'] },
+    feat:['Сильные засоры в частном доме','Плотные пробки, сложные участки','Не скручивается как дешёвые китайские тросы'] },
 
-  { id:'p09', d:12, l:15, price:7750,  cat:'house',
+  { id:'p09', d:12, l:15, price:7750,  cat:'house', inStock:true,
+    photos:['12 мм 15 метров фото 1-Photoroom.png','12 мм 15 метров фото 2-Photoroom.png','12 мм 15 метров фото 3-Photoroom.png'],
     title:'Трос 12 мм × 15 м',  tags:['Частный дом','Длинный'],             pipes:'75–110 мм',
     desc:'Длинные линии канализации. Частые и тяжёлые засоры.',
-    feat:['Длинные линии канализации','Частые и тяжёлые засоры','Отличный вариант для серьёзной прочистки'],
-    kw:['дом','длинный','тяжёлый','серьёзный','75','110'] },
+    feat:['Длинные линии канализации','Частые и тяжёлые засоры','Отличный вариант для серьёзной прочистки'] },
 
-  { id:'p10', d:12, l:20, price:10100, cat:'house',
+  { id:'p10', d:12, l:20, price:10100, cat:'house', inStock:false,
+    photos:[],
     title:'Трос 12 мм × 20 м',  tags:['Длинный','Тяжёлые условия'],        pipes:'75–110 мм',
     desc:'Для сложной домашней канализации. Длинные трассы, слабый уклон.',
-    feat:['Для сложной домашней канализации','Длинные трассы, слабый уклон','Подходит для тяжёлых условий'],
-    kw:['длинный','уклон','трасса','тяжёлый','75','110'] },
+    feat:['Для сложной домашней канализации','Длинные трассы, слабый уклон','Подходит для тяжёлых условий'] },
 
-  { id:'p11', d:14, l:15, price:11010, cat:'pro',
+  { id:'p11', d:14, l:15, price:11010, cat:'pro',   inStock:false,
+    photos:[],
     title:'Трос 14 мм × 15 м',  tags:['Полупрофи','Наружная'],              pipes:'100–160 мм',
     desc:'Полупрофессиональная прочистка. Наружная канализация, частный дом.',
-    feat:['Полупрофессиональная прочистка','Очень плотные засоры','Наружная канализация и частные дома'],
-    kw:['профессиональный','наружная','уличная','плотный','100','160'] },
+    feat:['Полупрофессиональная прочистка','Очень плотные засоры','Наружная канализация и частные дома'] },
 
-  { id:'p12', d:14, l:20, price:14460, cat:'pro',
+  { id:'p12', d:14, l:20, price:14460, cat:'pro',   inStock:false,
+    photos:[],
     title:'Трос 14 мм × 20 м',  tags:['Профи','Наружная','Длинный'],       pipes:'100–160 мм',
     desc:'Сложные уличные засоры. Ил, плотные отложения, застарелые пробки.',
-    feat:['Сложные уличные и домашние засоры','Ил, плотные отложения, застарелые пробки','Для тяжёлых задач и большой длины'],
-    kw:['уличная','наружная','ил','застарелый','колодец','160','длинный'] },
+    feat:['Сложные уличные и домашние засоры','Ил, плотные отложения, застарелые пробки','Для тяжёлых задач и большой длины'] },
 
-  { id:'p13', d:16, l:10, price:8590,  cat:'pro',
+  { id:'p13', d:16, l:10, price:8590,  cat:'pro',   inStock:true,
+    photos:['16 мм 10 метров фото 1.png','16 мм 10 метров фото 2-Photoroom.png','16 мм 10 метров фото 3-Photoroom.png'],
     title:'Трос 16 мм × 10 м',  tags:['Профи','Стояк','Наружная'],         pipes:'100–200 мм',
     desc:'Профессиональная прочистка. Стояки, наружная канализация.',
-    feat:['Профессиональная прочистка','Стояки, наружная канализация','Очень мощный и жёсткий трос'],
-    kw:['профессиональный','стояк','наружная','колодец','200','мощный'] },
+    feat:['Профессиональная прочистка','Стояки, наружная канализация','Очень мощный и жёсткий трос'] },
 
-  { id:'p14', d:16, l:15, price:12550, cat:'pro',
+  { id:'p14', d:16, l:15, price:12550, cat:'pro',   inStock:true,
+    photos:['16 мм 15 метров фото 1.png','16 мм 15 метров фото 2.png','16 мм 15 метров фото 3.jpg'],
     title:'Трос 16 мм × 15 м',  tags:['Профи','Тяжёлые задачи'],           pipes:'100–200 мм',
     desc:'Тяжёлые засоры и длинные трассы. Колодцы, наружная канализация.',
-    feat:['Тяжёлые засоры и длинные трассы','Колодцы, частные дома, наружная','Серьёзная механическая прочистка'],
-    kw:['профессиональный','колодец','наружная','200','тяжёлый','длинный'] },
+    feat:['Тяжёлые засоры и длинные трассы','Колодцы, частные дома, наружная','Серьёзная механическая прочистка'] },
 
-  { id:'p15', d:20, l:5,  price:null,  cat:'pro',
+  { id:'p15', d:20, l:5,  price:null,  cat:'pro',   inStock:true,
+    photos:['20 мм 5 метров фото 1-Photoroom.png','20 мм 5 метров фото 2-Photoroom.png','20 мм 5 метров фото 3-Photoroom.png'],
     title:'Трос 20 мм × 5 м',   tags:['Максимум','Профи'],                  pipes:'110–200+ мм',
     desc:'Максимальная жёсткость для очень плотных засоров рядом со входом.',
-    feat:['Максимальная жёсткость','Очень плотные засоры рядом с входом','Для тяжёлых профессиональных задач'],
-    kw:['профессиональный','максимальный','жёсткий','200','плотный'] },
+    feat:['Максимальная жёсткость','Очень плотные засоры рядом с входом','Для тяжёлых профессиональных задач'] },
 
-  { id:'p16', d:20, l:10, price:null,  cat:'pro',
+  { id:'p16', d:20, l:10, price:null,  cat:'pro',   inStock:true,
+    photos:['20 мм 10 метров фото 1.png','20 мм 10 метров фото 2.png','20 мм 10 метров фото 3 4.jpg'],
     title:'Трос 20 мм × 10 м',  tags:['Максимум','Профи','Наружная'],       pipes:'110–250 мм',
     desc:'Наружная канализация и колодцы. Ил, песок, плотные пробки.',
-    feat:['Наружная канализация и колодцы','Ил, песок, плотные пробки','Очень мощный профессиональный трос'],
-    kw:['наружная','колодец','ил','песок','250','профессиональный'] },
+    feat:['Наружная канализация и колодцы','Ил, песок, плотные пробки','Очень мощный профессиональный трос'] },
 
-  { id:'p17', d:20, l:20, price:null,  cat:'pro',
+  { id:'p17', d:20, l:20, price:null,  cat:'pro',   inStock:false,
+    photos:[],
     title:'Трос 20 мм × 20 м',  tags:['Максимум','Центральная'],            pipes:'110–300 мм',
     desc:'Центральная канализация, колодцы, наружные сети. Самые тяжёлые задачи.',
-    feat:['Самые тяжёлые засоры','Центральная канализация, колодцы, наружные сети','Для максимально сложных задач'],
-    kw:['центральная','колодец','наружная','300','профессиональный','максимальный'] },
+    feat:['Самые тяжёлые засоры','Центральная канализация, колодцы, наружные сети','Для максимально сложных задач'] },
 ];
 
 const FAQS = [
@@ -592,67 +557,145 @@ const FAQS = [
 ];
 
 // ── RENDER CATALOG ────────────────────────────────────────────────────────
-function renderGrid(cat='all') {
-  const list = cat === 'all' ? P : P.filter(p => p.cat === cat);
-  document.getElementById('grid').innerHTML = list.map(p => `
-    <div class="card bg-white border border-gray-100 rounded-2xl overflow-hidden cursor-pointer shadow-sm"
-         onclick="openMod('${p.id}')">
-      <div class="img-ph h-44 relative flex items-center justify-center">
-        <div class="text-center select-none">
-          <div class="text-5xl font-black text-white/10">${p.d}мм</div>
-          <div class="text-2xl font-bold text-white/15">× ${p.l}м</div>
+function renderGrid(cat='all', onlyInStock=false) {
+  let list = cat === 'all' ? P : P.filter(p => p.cat === cat);
+  if (onlyInStock) {
+    list = list.filter(p => p.inStock);
+  } else {
+    // Сначала в наличии, потом нет в наличии
+    list = [...list.filter(p => p.inStock), ...list.filter(p => !p.inStock)];
+  }
+
+  const inStockItems  = list.filter(p => p.inStock);
+  const oosItems      = list.filter(p => !p.inStock);
+  let html = inStockItems.map(p => cardHtml(p)).join('');
+
+  if (oosItems.length && !onlyInStock) {
+    html += `
+      <div class="col-span-full my-2 flex items-center gap-4">
+        <div class="flex-1 border-t border-dashed border-gray-200"></div>
+        <span class="text-gray-400 text-sm font-medium whitespace-nowrap">Нет в наличии — под заказ</span>
+        <div class="flex-1 border-t border-dashed border-gray-200"></div>
+      </div>`;
+    html += oosItems.map(p => cardHtml(p)).join('');
+  }
+
+  document.getElementById('grid').innerHTML = html;
+}
+
+function cardHtml(p) {
+  const urls = p.photos.map(fn => photoUrl(fn));
+  if (p.inStock) {
+    return `
+      <div class="card bg-white border border-gray-100 rounded-2xl overflow-hidden cursor-pointer shadow-sm"
+           onclick="openMod('${p.id}')">
+        <div class="h-44 relative overflow-hidden bg-gray-50">
+          <img src="${urls[0]}" alt="${p.title}"
+               class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+               onerror="this.closest('.h-44').classList.add('img-ph'); this.remove()">
+          <div class="absolute top-3 left-3 flex flex-wrap gap-1">
+            ${p.hot ? '<span class="text-xs px-2 py-0.5 rounded-full font-semibold bg-orange text-white shadow">Хит</span>' : ''}
+            <span class="text-xs px-2 py-0.5 rounded-full font-semibold bg-black/50 text-white backdrop-blur-sm">${p.tags[p.hot?1:0]||p.tags[0]}</span>
+          </div>
+          ${urls.length > 1 ? `
+          <div class="absolute bottom-2 right-2 flex gap-1">
+            ${urls.slice(1).map(u => `<img src="${u}" class="w-10 h-8 rounded object-cover border border-white/80 shadow-sm">`).join('')}
+          </div>` : ''}
         </div>
-        <div class="absolute top-3 left-3 flex flex-wrap gap-1">
-          ${p.hot ? '<span class="text-xs px-2 py-0.5 rounded-full font-semibold bg-orange text-white">Хит</span>' : ''}
-          <span class="text-xs px-2 py-0.5 rounded-full font-semibold bg-white/15 text-white">${p.tags[p.hot?1:0]||p.tags[0]}</span>
+        <div class="p-4">
+          <h3 class="font-bold mb-1">${p.title}</h3>
+          <p class="text-gray-400 text-xs mb-2">Трубы: ${p.pipes}</p>
+          <p class="text-gray-500 text-xs mb-4 leading-relaxed">${p.desc}</p>
+          <div class="flex items-center justify-between">
+            ${p.price ? `<div class="text-xl font-black">${p.price.toLocaleString('ru-RU')} ₽</div>` : `<div class="text-sm font-semibold text-gray-400">По запросу</div>`}
+            <a href="https://t.me/TrosNN?text=Хочу+заказать%3A+${encodeURIComponent(p.title)}"
+               target="_blank" onclick="event.stopPropagation()"
+               class="bg-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+              Заказать
+            </a>
+          </div>
         </div>
-        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 opacity-40">
-          <div class="w-14 h-10 rounded border border-white/30 flex items-center justify-center text-white/50 text-xs">фото</div>
-          <div class="w-14 h-10 rounded border border-white/30 flex items-center justify-center text-white/50 text-xs">фото</div>
-          <div class="w-14 h-10 rounded border border-white/30 flex items-center justify-center text-white/50 text-xs">фото</div>
+      </div>`;
+  } else {
+    return `
+      <div class="card card-oos bg-white border border-gray-100 rounded-2xl overflow-hidden cursor-pointer shadow-sm"
+           onclick="openMod('${p.id}')">
+        <div class="img-ph h-44 relative flex items-center justify-center">
+          <div class="text-center select-none">
+            <div class="text-5xl font-black text-white/10">${p.d}мм</div>
+            <div class="text-2xl font-bold text-white/15">× ${p.l}м</div>
+          </div>
+          <div class="absolute top-3 left-3">
+            <span class="text-xs px-2.5 py-1 rounded-full font-semibold bg-gray-600/90 text-white">Нет в наличии</span>
+          </div>
         </div>
-      </div>
-      <div class="p-4">
-        <h3 class="font-bold mb-1">${p.title}</h3>
-        <p class="text-gray-400 text-xs mb-2">Трубы: ${p.pipes}</p>
-        <p class="text-gray-500 text-xs mb-4 leading-relaxed">${p.desc}</p>
-        <div class="flex items-center justify-between">
-          ${p.price
-            ? `<div class="text-xl font-black">${p.price.toLocaleString('ru-RU')} ₽</div>`
-            : `<div class="text-sm font-semibold text-gray-400">По запросу</div>`}
-          <a href="https://t.me/TrosNN?text=Хочу+заказать%3A+${encodeURIComponent(p.title)}"
-             target="_blank" onclick="event.stopPropagation()"
-             class="bg-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
-            Заказать
-          </a>
+        <div class="p-4">
+          <h3 class="font-bold mb-1 text-gray-500">${p.title}</h3>
+          <p class="text-gray-400 text-xs mb-2">Трубы: ${p.pipes}</p>
+          <p class="text-gray-400 text-xs mb-4 leading-relaxed">${p.desc}</p>
+          <div class="flex items-center justify-between">
+            ${p.price ? `<div class="text-xl font-black text-gray-300">${p.price.toLocaleString('ru-RU')} ₽</div>` : `<div class="text-sm font-semibold text-gray-300">По запросу</div>`}
+            <a href="https://t.me/TrosNN?text=Когда+появится%3A+${encodeURIComponent(p.title)}"
+               target="_blank" onclick="event.stopPropagation()"
+               class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+              Написать
+            </a>
+          </div>
         </div>
-      </div>
-    </div>
-  `).join('');
+      </div>`;
+  }
 }
 
 // ── MODAL ─────────────────────────────────────────────────────────────────
 function openMod(id) {
   const p = P.find(x => x.id === id);
   if (!p) return;
-  document.getElementById('modal-body').innerHTML = `
+  const urls = p.photos.map(fn => photoUrl(fn));
+  const hasPhotos = urls.length > 0;
+
+  const photoSection = hasPhotos ? `
+    <div class="relative overflow-hidden h-56 bg-gray-50 flex items-center justify-center">
+      <img id="mod-main" src="${urls[0]}" alt="${p.title}" class="w-full h-full object-cover">
+      ${!p.inStock ? '<div class="absolute inset-0 bg-black/40 flex items-center justify-center"><span class="bg-gray-700 text-white font-bold px-4 py-2 rounded-full text-sm">Нет в наличии</span></div>' : ''}
+      <button onclick="closeMod()" class="absolute top-4 right-4 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-brand hover:bg-white transition-colors shadow">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      ${urls.length > 1 ? `
+      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 thumbs">
+        ${urls.map((u, i) => `
+          <img src="${u}" data-full="${u}"
+               onclick="switchModal(this)"
+               class="w-16 h-12 rounded object-cover border-2 cursor-pointer transition-all ${i===0?'border-orange shadow thumb-active':'border-white/70 opacity-70 hover:opacity-100'}">
+        `).join('')}
+      </div>` : ''}
+    </div>` : `
     <div class="img-ph h-52 relative flex items-center justify-center">
       <div class="text-center select-none">
         <div class="text-7xl font-black text-white/10">${p.d}мм</div>
         <div class="text-3xl font-bold text-white/15">× ${p.l}м</div>
       </div>
+      ${!p.inStock ? '<div class="absolute inset-0 bg-black/40 flex items-center justify-center"><span class="bg-gray-700 text-white font-bold px-4 py-2 rounded-full">Нет в наличии</span></div>' : ''}
       <button onclick="closeMod()" class="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
-      <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-        <div class="w-20 h-14 rounded border border-white/25 flex items-center justify-center text-white/35 text-xs">фото 1</div>
-        <div class="w-20 h-14 rounded border border-white/25 flex items-center justify-center text-white/35 text-xs">фото 2</div>
-        <div class="w-20 h-14 rounded border border-white/25 flex items-center justify-center text-white/35 text-xs">фото 3</div>
-      </div>
-    </div>
+    </div>`;
+
+  const orderBtn = p.inStock
+    ? `<a href="https://t.me/TrosNN?text=Хочу+заказать%3A+${encodeURIComponent(p.title)}" target="_blank"
+          class="bg-orange hover:bg-orange-600 text-white px-6 py-3 rounded-xl font-bold transition-colors">
+         Заказать в Telegram
+       </a>`
+    : `<a href="https://t.me/TrosNN?text=Когда+появится%3A+${encodeURIComponent(p.title)}" target="_blank"
+          class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-bold transition-colors">
+         Написать менеджеру
+       </a>`;
+
+  document.getElementById('modal-body').innerHTML = `
+    ${photoSection}
     <div class="p-6">
       <div class="flex flex-wrap gap-2 mb-4">
         ${p.tags.map(t=>`<span class="text-xs bg-orange/10 text-orange px-3 py-1 rounded-full font-semibold">${t}</span>`).join('')}
+        ${!p.inStock ? '<span class="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full font-semibold">Нет в наличии</span>' : ''}
       </div>
       <h2 class="text-2xl font-black mb-2">${p.title}</h2>
       <p class="text-gray-400 text-sm mb-5">Для труб диаметром: <strong class="text-brand">${p.pipes}</strong></p>
@@ -661,18 +704,26 @@ function openMod(id) {
       </ul>
       <div class="border-t pt-5 flex items-center justify-between">
         ${p.price
-          ? `<div class="text-3xl font-black">${p.price.toLocaleString('ru-RU')} ₽</div>`
+          ? `<div class="text-3xl font-black ${!p.inStock?'text-gray-300':''}">${p.price.toLocaleString('ru-RU')} ₽</div>`
           : `<div class="text-lg font-semibold text-gray-400">Цена по запросу</div>`}
-        <a href="https://t.me/TrosNN?text=Хочу+заказать%3A+${encodeURIComponent(p.title)}"
-           target="_blank"
-           class="bg-orange hover:bg-orange-600 text-white px-6 py-3 rounded-xl font-bold transition-colors">
-          Заказать в Telegram
-        </a>
+        ${orderBtn}
       </div>
     </div>`;
+
   document.getElementById('modal').classList.replace('hidden','flex');
   document.body.style.overflow='hidden';
 }
+
+function switchModal(thumb) {
+  document.getElementById('mod-main').src = thumb.dataset.full;
+  thumb.closest('.thumbs').querySelectorAll('img').forEach(t => {
+    t.classList.remove('border-orange','shadow','thumb-active');
+    t.classList.add('border-white/70','opacity-70');
+  });
+  thumb.classList.add('border-orange','shadow','thumb-active');
+  thumb.classList.remove('border-white/70','opacity-70');
+}
+
 function closeMod() {
   document.getElementById('modal').classList.replace('flex','hidden');
   document.body.style.overflow='';
@@ -680,9 +731,13 @@ function closeMod() {
 
 // ── FILTERS ───────────────────────────────────────────────────────────────
 function filterCat(cat, btn) {
-  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderGrid(cat);
+  if (cat === 'instock') {
+    renderGrid('all', true);
+  } else {
+    renderGrid(cat);
+  }
 }
 
 // ── FAQ ───────────────────────────────────────────────────────────────────
@@ -715,11 +770,9 @@ async function send() {
   const txt = inp.value.trim();
   if (!txt) return;
   inp.value='';
-
   addMsg(txt,'user');
   document.getElementById('sbtn').disabled=true;
   addTyping();
-
   try {
     const r = await fetch('/api/chat', {
       method:'POST',
@@ -729,7 +782,6 @@ async function send() {
     if (!r.ok) throw new Error();
     const data = await r.json();
     removeTyping();
-
     const raw = data.reply || '';
     const m = raw.match(/ТОВАРЫ:\s*\[([^\]]+)\]/);
     const clean = raw.replace(/ТОВАРЫ:\s*\[[^\]]+\]/,'').trim();
@@ -785,20 +837,22 @@ function addCards(recs) {
   d.innerHTML=`
     <div class="w-8 flex-shrink-0"></div>
     <div class="flex gap-2 flex-wrap">
-      ${recs.map(p=>`
-        <div class="bg-white rounded-xl border border-gray-200 p-3 w-36 cursor-pointer hover:border-orange transition-colors"
-             onclick="openMod('${p.id}')">
-          <div class="img-ph rounded-lg h-16 flex items-center justify-center mb-2">
-            <span class="text-white/30 font-bold text-xs">${p.d}мм×${p.l}м</span>
-          </div>
-          <div class="font-semibold text-xs mb-1 leading-tight">${p.title}</div>
-          <div class="text-orange text-xs font-bold mb-2">${p.price?p.price.toLocaleString('ru-RU')+' ₽':'По запросу'}</div>
-          <a href="https://t.me/TrosNN?text=Хочу+заказать%3A+${encodeURIComponent(p.title)}"
-             target="_blank" onclick="event.stopPropagation()"
-             class="block text-center bg-orange text-white text-xs py-1.5 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
-            Заказать
-          </a>
-        </div>`).join('')}
+      ${recs.map(p=>{
+        const thumb = p.photos.length ? `<img src="${photoUrl(p.photos[0])}" class="w-full h-full object-cover rounded-lg">` :
+          `<div class="img-ph w-full h-full rounded-lg flex items-center justify-center"><span class="text-white/30 font-bold text-xs">${p.d}мм×${p.l}м</span></div>`;
+        return `
+          <div class="bg-white rounded-xl border border-gray-200 p-3 w-36 cursor-pointer hover:border-orange transition-colors"
+               onclick="openMod('${p.id}')">
+            <div class="h-16 mb-2 overflow-hidden rounded-lg">${thumb}</div>
+            <div class="font-semibold text-xs mb-1 leading-tight">${p.title}</div>
+            <div class="text-orange text-xs font-bold mb-2">${p.price?p.price.toLocaleString('ru-RU')+' ₽':'По запросу'}</div>
+            <a href="https://t.me/TrosNN?text=Хочу+заказать%3A+${encodeURIComponent(p.title)}"
+               target="_blank" onclick="event.stopPropagation()"
+               class="block text-center bg-orange text-white text-xs py-1.5 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
+              Заказать
+            </a>
+          </div>`;
+      }).join('')}
     </div>`;
   msgs.appendChild(d);
   msgs.scrollTop=msgs.scrollHeight;
